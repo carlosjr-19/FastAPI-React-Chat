@@ -6,15 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 # Permitir que el frontend se conecte
-origins = [
-    "http://localhost",
-    "http://localhost:80",
-    "https://zippy-celebration-production-a077.up.railway.app" # <--- ¡TU FRONTEND REAL!
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins, # Allow all origins for simplicity in this setup, or restrict to frontend host
+    allow_origins=["*"], # Allow all origins for simplicity in this setup, or restrict to frontend host
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
