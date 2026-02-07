@@ -3,12 +3,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
+# 1. Install dependencies
+# Buscamos el requirements.txt DENTRO de la carpeta backend
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend code
-COPY . .
+# 2. Copy backend code
+# Copiamos todo el contenido de la carpeta backend al contenedor
+COPY backend/ .
 
 # Expose port 8000
 EXPOSE 8000
