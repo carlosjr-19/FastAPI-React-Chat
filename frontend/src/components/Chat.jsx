@@ -7,10 +7,15 @@ export default function Chat() {
     const ws = useRef(null)
 
     useEffect(() => {
-        // Connect to WebSocket dynamically based on current protocol and host
-        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const host = window.location.host;
-        const wsUrl = `${protocol}//${host}/ws`;
+        // 1. Obtenemos la URL del Backend desde la variable de entorno
+        // Si no existe (estás en local), usa localhost:8000
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+        // 2. Convertimos http/https a ws/wss para WebSockets
+        // Esto cambia 'https://mi-backend.com' a 'wss://mi-backend.com/ws'
+        const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws';
+
+        console.log("Conectando a:", wsUrl); // Para depurar
 
         ws.current = new WebSocket(wsUrl)
 
